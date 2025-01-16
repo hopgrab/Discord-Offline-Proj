@@ -26,7 +26,7 @@ export default function App() {
             <img
               src={`./src/assets/${image}`}
               alt={`Server ${index + 1}`}
-              className="w-9 h-9"
+              className="w-8 h-8"
             />
           </button>
         ))}
