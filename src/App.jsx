@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useMessages } from './discordStore';
 
 export default function App() {
-  const images = ['image1.png', 'image2.png', 'image3.jpg']
+  const images = ['image1.png', 'image2.png', 'image3.jpg'];
 
   return (
-    <div className='flex h-screen'>
+    <div className="flex h-screen">
       {/* Servers */}
       <Servers />
       {/* Channels */}
@@ -13,11 +13,11 @@ export default function App() {
       {/* Chatroom */}
       <ChatRoom />
     </div>
-  )
+  );
 
   function Servers() {
-    return(
-      <div className='bg-[#212226] w-18 p-4 space-y-2'>
+    return (
+      <div className="bg-[#212226] w-18 p-4 space-y-2">
         {images.map((image, index) => (
           <button
             key={index}
@@ -26,12 +26,12 @@ export default function App() {
             <img
               src={`./src/assets/${image}`}
               alt={`Server ${index + 1}`}
-              className="w-8 h-8"
+              className="w-9 h-9"
             />
           </button>
         ))}
       </div>
-    )
+    );
   }
 
   function Channels() {
@@ -40,17 +40,23 @@ export default function App() {
 
     const tab1Channels = ['readme', 'announcements', 'events'];
     const tab2Channels = ['general', 'bot-commands', 'vc-chat', 'test', '123'];
-    return(
-      <div className='bg-[#303136] w-64 p-4'>
-        {/* Top Image - Di pa implemented na maayos need to mag change after mag swap server */} 
-        <img src={`./src/assets/${images[0]}`} alt="Top Image" className="w-full h-20 object-cover mb-4" />
+    return (
+      <div className="bg-[#303136] w-64 p-4">
+        {/* Top Image - Di pa implemented na maayos need to mag change after mag swap server */}
+        <img
+          src={`./src/assets/${images[0]}`}
+          alt="Top Image"
+          className="w-full h-20 object-cover mb-4"
+        />
 
         {/* tab1 */}
         <div>
           <button
             onClick={() => setTab1Open(!isTab1Open)}
             className="w-full text-left text-white font-bold mb-2"
-          >IMPORTANT</button>
+          >
+            IMPORTANT
+          </button>
           {isTab1Open && (
             <div className="ml-4 space-y-1">
               {tab1Channels.map((channel, index) => (
@@ -89,14 +95,10 @@ export default function App() {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   function ChatRoom() {
-    return(
-      <div className='bg-[#363940] flex-1 p-4'> 
-      
-      </div>
-    )
+    return <div className="bg-[#363940] flex-1 p-4"></div>;
   }
 }
