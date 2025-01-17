@@ -21,9 +21,9 @@ export default function App() {
         {images.map((image, index) => (
           <button
             key={index}
-            className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center"
+            className="w-12 h-12 bg-gray-600 flex items-center justify-center rounded-full"
           >
-            <div className="avatar">
+            <div className="avatar tooltip tooltip-right" data-tip="hello">
               <div className="w-fit rounded-3xl hover:rounded-2xl transition-all duration-200">
                 <img
                   src={`./src/assets/${image}`}
