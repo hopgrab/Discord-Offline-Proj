@@ -54,7 +54,7 @@ function Category(props) {
               className="w-full text-left text-gray-400 hover:text-white flex items-center space-x-2"
             >
               <span className="text-2xl">#</span>
-              <span>{channel}</span>
+              <span className="overflow-hidden w-full h-6">{channel}</span>
             </button>
           ))}
         </div>
@@ -95,6 +95,7 @@ function Channels() {
             'this-is-a-long-channel-name',
           ]}
         />
+        <Category title="test" tabChannels={['lol']} />
       </div>
     </div>
   );
