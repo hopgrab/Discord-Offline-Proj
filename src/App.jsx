@@ -24,7 +24,7 @@ export default function App() {
             className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center"
           >
             <div className="avatar">
-              <div className="w-fit rounded-full">
+              <div className="w-fit rounded-3xl hover:rounded-2xl transition-all duration-200">
                 <img
                   src={`./src/assets/${image}`}
                   alt={`Server ${index + 1}`}
