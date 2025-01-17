@@ -18,14 +18,14 @@ export default function App() {
 
 function Servers() {
   return (
-    <div className="bg-[#212226] w-18 p-4 space-y-2">
+    <div className="bg-[#212226] w-18 p-2 space-y-3">
       {images.map((image, index) => (
         <button
           key={index}
-          className="w-12 h-12 bg-gray-600 flex items-center justify-center rounded-full"
+          className="size-14 bg-gray-600 flex items-center justify-center rounded-full"
         >
           <div className="avatar tooltip tooltip-right" data-tip="hello">
-            <div className="w-fit rounded-3xl hover:rounded-2xl transition-all duration-200">
+            <div className="w-fit rounded-badge hover:rounded-2xl transition-all duration-200">
               <img src={`./src/assets/${image}`} alt={`Server ${index + 1}`} />
             </div>
           </div>
