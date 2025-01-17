@@ -39,21 +39,21 @@ function Category(props) {
   const [isTabOpen, setTabOpen] = useState(true);
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <button
         onClick={() => setTabOpen(!isTabOpen)}
-        className="w-full text-left text-white font-bold mb-2 uppercase"
+        className="w-full text-left text-white font-bold uppercase"
       >
         {props.title}
       </button>
       {isTabOpen && (
-        <div className="ml-4 space-y-1">
+        <div className="pl-4">
           {props.tabChannels.map((channel, index) => (
             <button
               key={index}
               className="w-full text-left text-gray-400 hover:text-white flex items-center space-x-2"
             >
-              <span>#</span>
+              <span className="text-2xl">#</span>
               <span>{channel}</span>
             </button>
           ))}
@@ -67,7 +67,7 @@ function Channels() {
   const tab1Channels = ['readme', 'announcements', 'events'];
   const tab2Channels = ['general', 'bot-commands', 'vc-chat', 'test', '123'];
   return (
-    <div className="bg-[#303136] w-64 p-4 flex flex-col gap-3">
+    <div className="bg-[#303136] w-64 p-4 flex flex-col gap-3 overflow-auto">
       {/* Top Image - Di pa implemented na maayos need to mag change after mag swap server */}
       <img
         src={`./src/assets/${images[0]}`}
@@ -79,6 +79,22 @@ function Channels() {
       <div className="flex flex-col gap-3 py-3">
         <Category title="important" tabChannels={tab1Channels} />
         <Category title="general" tabChannels={tab2Channels} />
+        <Category
+          title="anime"
+          tabChannels={['vids', 'pics', 'asdf', 'xd', 'time-out', 'amongus']}
+        />
+        <Category
+          title="cute-stuff"
+          tabChannels={[
+            'anime-pics',
+            'anime-stuff',
+            'uwu',
+            'owo',
+            'real',
+            'memes',
+            'this-is-a-long-channel-name',
+          ]}
+        />
       </div>
     </div>
   );
