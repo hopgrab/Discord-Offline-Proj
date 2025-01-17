@@ -23,11 +23,14 @@ export default function App() {
             key={index}
             className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center"
           >
-            <img
-              src={`./src/assets/${image}`}
-              alt={`Server ${index + 1}`}
-              className="w-8 h-8"
-            />
+            <div className="avatar">
+              <div className="w-fit rounded-full">
+                <img
+                  src={`./src/assets/${image}`}
+                  alt={`Server ${index + 1}`}
+                />
+              </div>
+            </div>
           </button>
         ))}
       </div>
