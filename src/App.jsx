@@ -16,7 +16,7 @@ export default function App() {
   );
 }
 
-function Servers() {
+function Servers(props) {
   return (
     <div className="bg-[#212226] w-18 p-2 space-y-3">
       {images.map((image, index) => (
