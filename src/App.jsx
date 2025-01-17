@@ -104,5 +104,8 @@ function Channels() {
 }
 
 function ChatRoom() {
-  return <div className="bg-[#363940] flex-1 p-4"></div>;
+  return <div className="bg-[#363940] flex-1 p-4">
+
+    
+  </div>;
 }
