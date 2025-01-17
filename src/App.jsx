@@ -35,65 +35,50 @@ function Servers() {
   );
 }
 
-function Channels() {
-  const [isTab1Open, setTab1Open] = useState(true);
-  const [isTab2Open, setTab2Open] = useState(true);
+function Category(props) {
+  const [isTabOpen, setTabOpen] = useState(true);
 
+  return (
+    <div>
+      <button
+        onClick={() => setTabOpen(!isTabOpen)}
+        className="w-full text-left text-white font-bold mb-2 uppercase"
+      >
+        {props.title}
+      </button>
+      {isTabOpen && (
+        <div className="ml-4 space-y-1">
+          {props.tabChannels.map((channel, index) => (
+            <button
+              key={index}
+              className="w-full text-left text-gray-400 hover:text-white flex items-center space-x-2"
+            >
+              <span>#</span>
+              <span>{channel}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Channels() {
   const tab1Channels = ['readme', 'announcements', 'events'];
   const tab2Channels = ['general', 'bot-commands', 'vc-chat', 'test', '123'];
   return (
-    <div className="bg-[#303136] w-64 p-4">
+    <div className="bg-[#303136] w-64 p-4 flex flex-col gap-3">
       {/* Top Image - Di pa implemented na maayos need to mag change after mag swap server */}
       <img
         src={`./src/assets/${images[0]}`}
         alt="Top Image"
-        className="w-full h-20 object-cover mb-4"
+        className="w-full h-20 object-cover"
       />
 
-      {/* tab1 */}
-      <div>
-        <button
-          onClick={() => setTab1Open(!isTab1Open)}
-          className="w-full text-left text-white font-bold mb-2"
-        >
-          IMPORTANT
-        </button>
-        {isTab1Open && (
-          <div className="ml-4 space-y-1">
-            {tab1Channels.map((channel, index) => (
-              <button
-                key={index}
-                className="w-full text-left text-gray-400 hover:text-white flex items-center space-x-2"
-              >
-                <span>#</span>
-                <span>{channel}</span>
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* tab2 */}
-        <div>
-          <button
-            onClick={() => setTab2Open(!isTab2Open)}
-            className="w-full text-left text-white font-bold mb-2"
-          >
-            GENERAL
-          </button>
-          {isTab2Open && (
-            <div className="ml-4 space-y-1">
-              {tab2Channels.map((channel, index) => (
-                <button
-                  key={index}
-                  className="w-full text-left text-gray-400 hover:text-white flex items-center space-x-2"
-                >
-                  <span>#</span>
-                  <span>{channel}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+      {/* Categories container */}
+      <div className="flex flex-col gap-3 py-3">
+        <Category title="important" tabChannels={tab1Channels} />
+        <Category title="general" tabChannels={tab2Channels} />
       </div>
     </div>
   );
