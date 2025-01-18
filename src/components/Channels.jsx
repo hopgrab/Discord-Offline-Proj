@@ -1,8 +1,31 @@
 import React from 'react';
 import Category from './Category';
-import { images } from '../assets/images.jsx';
+import { useDiscordStore } from '../discordStore.js';
+import Modal from './Modal.jsx';
 
-export default function Channels({ setCurrentChannel, currentServer }) {
+function AddCategory() {
+  const addCategory = useDiscordStore((state) => state.addCategory);
+
+  return (
+    <Modal
+      buttonName="Add Category"
+      header="Add Category"
+      onSubmit={addCategory}
+      id="add-category"
+    >
+      <button
+        className="btn btn-outline"
+        onClick={() => document.getElementById('add-category').showModal()}
+      >
+        Add Category
+      </button>
+    </Modal>
+  );
+}
+export default function Channels({ setCurrentChannel }) {
+  const servers = useDiscordStore((state) => state.servers);
+  const currentServer = useDiscordStore((state) => state.currentServer);
+
   const serverChannels = {
     // SERVER 1 Channels
     0: {
@@ -58,20 +81,25 @@ export default function Channels({ setCurrentChannel, currentServer }) {
 
   return (
     <div className="bg-[#303136] w-64 flex flex-col gap-3 overflow-auto">
-      <img
-        src={images[currentServer]}
-        alt="Top Image"
-        className="w-full h-32 object-cover"
-      />
+      <div className="p-4">
+        <h1 className="text-white text-2xl font-extrabold">
+          {servers.length != 0 && servers[currentServer].name}
+        </h1>
+      </div>
+      <AddCategory />
       <div className="flex flex-col gap-3 py-3">
-        {Object.entries(currentServerChannels).map(([title, channels]) => (
-          <Category
-            key={title}
-            title={title}
-            tabChannels={channels}
-            setCurrentChannel={setCurrentChannel}
-          />
-        ))}
+        {servers[currentServer] && servers[currentServer].categories ? (
+          servers[currentServer].categories.map((category, index) => (
+            <Category
+              key={index}
+              title={category.name}
+              tabChannels={category.channels}
+              setCurrentChannel={setCurrentChannel}
+            />
+          ))
+        ) : (
+          <div>No</div>
+        )}
       </div>
     </div>
   );
