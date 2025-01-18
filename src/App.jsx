@@ -8,7 +8,7 @@ export default function App() {
   const currentChannel = useDiscordStore((state) => state.currentChannel);
   const currentServer = useDiscordStore((state) => state.currentServer);
   const setCurrentServer = useDiscordStore((state) => state.setCurrentServer);
-  const setCurrentChannel = useDiscordStore((state) => state.setCurrentChannel);
+  const setCurrentChannel = useDiscordStore((state) => state.setCurrentCh);
 
   return (
     <div className="flex h-screen">
