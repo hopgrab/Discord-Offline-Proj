@@ -6,6 +6,7 @@ export default function ChatRoom({ currentChannel }) {
   const [messageInput, setMessage] = useState('');
   const messages = useDiscordStore((state) => state.messages);
   const addMessage = useDiscordStore((state) => state.addMessage);
+  console.log(messages);
 
   const handleSendMessage = () => {
     if (messageInput.trim()) {
