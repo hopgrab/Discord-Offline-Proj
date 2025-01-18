@@ -1,9 +1,15 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-export const useMessages = create((set) => ({
-    messages: [],
-    addMessage: (newMessage) => set((state) => ({
-        messages: [...state.messages, newMessage], 
-    })),
-}))
+export const useMessages = create(
+  persist(
+    (set, get) => ({
+      messages: [],
+      addMessage: (newMessage) =>
+        set((state) => ({
+          messages: [...get().messages, newMessage],
+        })),
+    }),
+    { name: 'messages', storage: createJSONStorage(() => sessionStorage) }
+  )
+);

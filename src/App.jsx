@@ -8,19 +8,22 @@ import image3 from './assets/image3.jpg';
 const images = [image1, image2, image3];
 
 export default function App() {
-  const [currentChannel, setCurrentChannel] = useState("general");  //-test
-  const [currentServer, setCurrentServer] = useState(0);            //-test
+  const [currentChannel, setCurrentChannel] = useState('general'); //-test
+  const [currentServer, setCurrentServer] = useState(0); //-test
 
   return (
     <div className="flex h-screen">
       <Servers setCurrentServer={setCurrentServer} />
-      <Channels setCurrentChannel={setCurrentChannel} currentServer={currentServer} />
+      <Channels
+        setCurrentChannel={setCurrentChannel}
+        currentServer={currentServer}
+      />
       <ChatRoom currentChannel={currentChannel} />
     </div>
   );
 }
 
-function Servers({setCurrentServer}) {
+function Servers({ setCurrentServer }) {
   return (
     <div className="bg-[#212226] max-w-18 p-2 gap-3 flex flex-col">
       {images.map((image, index) => (
@@ -28,8 +31,9 @@ function Servers({setCurrentServer}) {
           key={index}
           className="dropdown dropdown-hover dropdown-right dropdown-center"
         >
-          <button className="size-14 bg-gray-600 flex items-center justify-center rounded-full" 
-          onClick={() => setCurrentServer(index)} //-test
+          <button
+            className="size-14 bg-gray-600 flex items-center justify-center rounded-full"
+            onClick={() => setCurrentServer(index)} //-test
           >
             <div className="avatar">
               <div className="h-full rounded-badge hover:rounded-2xl transition-all duration-200">
@@ -119,20 +123,24 @@ function Channels({ setCurrentChannel, currentServer }) {
           ]}
           setCurrentChannel={setCurrentChannel}
         />
-        <Category title="test" tabChannels={['lol']} setCurrentChannel={setCurrentChannel} />
+        <Category
+          title="test"
+          tabChannels={['lol']}
+          setCurrentChannel={setCurrentChannel}
+        />
       </div>
     </div>
   );
 }
 
 function ChatRoom({ currentChannel }) {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const { messages, addMessage } = useMessages();
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      addMessage({ channel: currentChannel, content: message.trim() }); //update 
-      setMessage(""); 
+      addMessage({ channel: currentChannel, content: message.trim() }); //update
+      setMessage('');
     }
   };
 
@@ -147,7 +155,7 @@ function ChatRoom({ currentChannel }) {
       {/* Messages list - naka messages per channel lang to, di gumagana swap servers */}
       <div className="flex-1 overflow-y-auto bg-[#2F3136] p-4 space-y-2">
         {messages
-          .filter((msg) => msg.channel === currentChannel) 
+          .filter((msg) => msg.channel === currentChannel)
           .map((msg, index) => (
             <div
               key={index}
@@ -175,6 +183,5 @@ function ChatRoom({ currentChannel }) {
         </button>
       </div>
     </div>
-    
   );
 }
