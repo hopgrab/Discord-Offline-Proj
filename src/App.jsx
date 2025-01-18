@@ -4,8 +4,8 @@ import Channels from './components/Channels';
 import ChatRoom from './components/ChatRoom';
 
 export default function App() {
-  const [currentChannel, setCurrentChannel] = useState('general'); //-test
-  const [currentServer, setCurrentServer] = useState(0); //-test
+  const [currentChannel, setCurrentChannel] = useState('general');
+  const [currentServer, setCurrentServer] = useState(0);
 
   return (
     <div className="flex h-screen">
@@ -14,7 +14,7 @@ export default function App() {
         setCurrentChannel={setCurrentChannel}
         currentServer={currentServer}
       />
-      <ChatRoom currentChannel={currentChannel} />
+      <ChatRoom currentChannel={currentChannel} currentServer={currentServer} />
     </div>
   );
 }

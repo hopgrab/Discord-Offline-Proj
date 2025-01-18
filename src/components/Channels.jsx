@@ -3,8 +3,59 @@ import Category from './Category';
 import { images } from '../assets/images.jsx';
 
 export default function Channels({ setCurrentChannel, currentServer }) {
-  const tab1Channels = ['readme', 'announcements', 'events'];
-  const tab2Channels = ['general', 'bot-commands', 'vc-chat', 'test', '123'];
+  const serverChannels = {
+    // SERVER 1 Channels
+    0: {
+      important: ['readme', 'announcements', 'events'],
+      general: ['general', 'bot-commands', 'vc-chat', 'test', '123'],
+      anime: ['vids', 'pics', 'asdf', 'xd', 'time-out', 'amongus'],
+      'cute-stuff': [
+        'anime-pics',
+        'anime-stuff',
+        'uwu',
+        'owo',
+        'real',
+        'memes',
+        'this-is-a-long-channel-name',
+      ],
+      test: ['lol'],
+    },
+    // SERVER 2 Channels
+    1: {
+      important: ['readme', 'announcements', 'events'],
+      general: ['general', 'bot-commands', 'vc-chat', 'test', '123'],
+      anime: ['vids', 'pics', 'asdf', 'xd', 'time-out', 'amongus'],
+      'cute-stuff': [
+        'anime-pics',
+        'anime-stuff',
+        'uwu',
+        'owo',
+        'real',
+        'memes',
+        'this-is-a-long-channel-name',
+      ],
+      test: ['lol'],
+    },
+    // SERVER 3 Channels
+    2: {
+      important: ['readme', 'announcements', 'events'],
+      general: ['general', 'bot-commands', 'vc-chat', 'test', '123'],
+      anime: ['vids', 'pics', 'asdf', 'xd', 'time-out', 'amongus'],
+      'cute-stuff': [
+        'anime-pics',
+        'anime-stuff',
+        'uwu',
+        'owo',
+        'real',
+        'memes',
+        'this-is-a-long-channel-name',
+      ],
+      test: ['lol'],
+    },
+  };
+
+  const currentServerChannels = serverChannels[currentServer];
+
   return (
     <div className="bg-[#303136] w-64 flex flex-col gap-3 overflow-auto">
       <img
@@ -13,39 +64,14 @@ export default function Channels({ setCurrentChannel, currentServer }) {
         className="w-full h-32 object-cover"
       />
       <div className="flex flex-col gap-3 py-3">
-        <Category
-          title="important"
-          tabChannels={tab1Channels}
-          setCurrentChannel={setCurrentChannel}
-        />
-        <Category
-          title="general"
-          tabChannels={tab2Channels}
-          setCurrentChannel={setCurrentChannel}
-        />
-        <Category
-          title="anime"
-          tabChannels={['vids', 'pics', 'asdf', 'xd', 'time-out', 'amongus']}
-          setCurrentChannel={setCurrentChannel}
-        />
-        <Category
-          title="cute-stuff"
-          tabChannels={[
-            'anime-pics',
-            'anime-stuff',
-            'uwu',
-            'owo',
-            'real',
-            'memes',
-            'this-is-a-long-channel-name',
-          ]}
-          setCurrentChannel={setCurrentChannel}
-        />
-        <Category
-          title="test"
-          tabChannels={['lol']}
-          setCurrentChannel={setCurrentChannel}
-        />
+        {Object.entries(currentServerChannels).map(([title, channels]) => (
+          <Category
+            key={title}
+            title={title}
+            tabChannels={channels}
+            setCurrentChannel={setCurrentChannel}
+          />
+        ))}
       </div>
     </div>
   );
