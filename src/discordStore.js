@@ -32,6 +32,11 @@ export const useDiscordStore = create(
       setCurrentChannel: (channelId) => {
         set({ currentChannel: channelId });
       },
+      addServer: (serverName) => {
+        set({
+          servers: [...get().servers, serverName],
+        });
+      },
     }),
     { name: 'messages', storage: createJSONStorage(() => sessionStorage) }
   )

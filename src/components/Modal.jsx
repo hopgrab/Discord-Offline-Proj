@@ -2,7 +2,10 @@ import React from 'react';
 
 export default function Modal(props) {
   return (
-    <dialog id="my_modal_3" className={`modal ${props.className}`}>
+    <dialog
+      id="my_modal_3"
+      className={`modal ${props.className} ${props.isOpen && 'modal-open'}`}
+    >
       <div className="modal-box">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
