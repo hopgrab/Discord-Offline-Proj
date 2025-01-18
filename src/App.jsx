@@ -125,7 +125,7 @@ function ChatRoom() {
           {messages.map((message, index) => (
             <div
               key={index}
-              className="p-2 rounded-lg bg-gray-600 shadow text-white"
+              className="p-2 rounded-lg bg-[#363940] shadow text-white"
             >
               {message}
             </div>
@@ -135,23 +135,57 @@ function ChatRoom() {
         {/* Chat Input */}
         <form
           onSubmit={handleSendMessage}
-          className="p-3 bg-gray-800 rounded-b-lg flex items-center space-x-3"
+          className="p-3 bg-[#363940] rounded-b-lg flex items-center space-x-3"
         >
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Message #general "
-            className="flex-1 input input-bordered bg-gray-600 text-white focus:outline-none"
-          />
+        {/* Plus Icon */}
+        <button
+        type="button"
+        className="text-gray-400 hover:text-gray-200 flex items-center justify-center w-8 h-8 rounded-full bg-gray-700"> + </button>
+
+        {/* Input Field */}
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Message #general"
+          className="flex-1 bg-gray-700 text-white rounded-full px-4 py-2 focus:outline-none placeholder-gray-400"
+        />
+
+        {/* Icon Buttons */}
+        <div className="flex items-center space-x-2 text-gray-400">
           <button
-            type="submit"
-            className="btn btn-primary"
+            type="button"
+            className="hover:text-gray-200 flex items-center justify-center w-8 h-8"
           >
-            
-            Send
+            🎁
           </button>
-        </form>
+          <button
+            type="button"
+            className="hover:text-gray-200 flex items-center justify-center w-8 h-8"
+          >
+            GIF
+          </button>
+          <button
+            type="button"
+            className="hover:text-gray-200 flex items-center justify-center w-8 h-8"
+          >
+            🙂
+          </button>
+          <button
+            type="button"
+            className="hover:text-gray-200 flex items-center justify-center w-8 h-8"
+          >
+            😞
+          </button>
+          <button
+            type="button"
+            className="hover:text-gray-200 flex items-center justify-center w-8 h-8"
+          >
+            ⤢
+          </button>
+        </div>
+      </form>
+
     </div>
   
   );
