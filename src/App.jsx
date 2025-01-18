@@ -104,14 +104,14 @@ function Channels() {
 }
 
 function ChatRoom() {
-  const [messages, setMessages] = useState([]); // State to store messages
-  const [input, setInput] = useState(""); // State for input value
+  const [messages, setMessages] = useState([]); // State para ma store yung mga messages
+  const [input, setInput] = useState(""); // just input
 
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (input.trim() !== "") {
-      setMessages([...messages, input]); // Add new message to the state
-      setInput(""); // Clear the input field
+      setMessages([...messages, input]); 
+      setInput(""); 
     }
   };
 
@@ -120,7 +120,7 @@ function ChatRoom() {
     {/* Chat Window */}
     <div
           id="chatWindow"
-          className="p-4 space-y-4 h-96 overflow-y-auto bg-gray-700 rounded-t-lg"
+          className="p-4 space-y-4 h-96 overflow-y-auto bg-[#363940] rounded-t-lg"
         >
           {messages.map((message, index) => (
             <div
@@ -141,13 +141,14 @@ function ChatRoom() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message here..."
+            placeholder="Message #general "
             className="flex-1 input input-bordered bg-gray-600 text-white focus:outline-none"
           />
           <button
             type="submit"
             className="btn btn-primary"
           >
+            
             Send
           </button>
         </form>
