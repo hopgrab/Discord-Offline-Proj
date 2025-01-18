@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import Servers from './components/Servers';
 import Channels from './components/Channels';
 import ChatRoom from './components/ChatRoom';
+import Modal from './components/Modal.jsx';
 import { useDiscordStore } from './discordStore.js';
 
 export default function App() {

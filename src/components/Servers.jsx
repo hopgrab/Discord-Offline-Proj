@@ -1,6 +1,30 @@
 import React from 'react';
 import { images } from '../assets/images.jsx';
 import { useDiscordStore } from '../discordStore.js';
+import Modal from './Modal.jsx';
+
+function AddServerIcon() {
+  return (
+    <div>
+      <button
+        className="btn btn-circle btn-outline text-4xl"
+        onClick={() => document.getElementById('my_modal_3').showModal()}
+      >
+        <span className="h-full font-light">+</span>
+      </button>
+      <Modal>
+        <div className="flex flex-col items-center gap-5">
+          <h1 className="text-white text-3xl font-bold">Add Server</h1>
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+          />
+        </div>
+      </Modal>
+    </div>
+  );
+}
 
 export default function Servers({ setCurrentServer }) {
   const servers = useDiscordStore((state) => state.servers);
@@ -30,9 +54,7 @@ export default function Servers({ setCurrentServer }) {
           </div>
         </div>
       ))}
-      <button className="btn btn-circle btn-outline text-4xl">
-        <span className="h-full ">+</span>
-      </button>
+      <AddServerIcon />
     </div>
   );
 }
