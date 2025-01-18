@@ -1,14 +1,15 @@
 import React from 'react';
-import { useMessages } from '../discordStore.js';
+import { useDiscordStore } from '../discordStore.js';
 import { useState } from 'react';
 
 export default function ChatRoom({ currentChannel }) {
-  const [message, setMessage] = useState('');
-  const { messages, addMessage } = useMessages();
+  const [messageInput, setMessage] = useState('');
+  const messages = useDiscordStore((state) => state.messages);
+  const addMessage = useDiscordStore((state) => state.addMessage);
 
   const handleSendMessage = () => {
-    if (message.trim()) {
-      addMessage({ channel: currentChannel, content: message.trim() }); //update
+    if (messageInput.trim()) {
+      addMessage({ channel: currentChannel, content: messageInput.trim() }); //update
       setMessage('');
     }
   };
@@ -45,7 +46,7 @@ export default function ChatRoom({ currentChannel }) {
       <div className="bg-[#2F3136] p-3 flex items-center">
         <input
           type="text"
-          value={message}
+          value={messageInput}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={`Message #${currentChannel}`}
           className="flex-1 bg-[#40444b] text-white p-2 rounded-md outline-none"
