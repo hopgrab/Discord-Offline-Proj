@@ -104,8 +104,55 @@ function Channels() {
 }
 
 function ChatRoom() {
-  return <div className="bg-[#363940] flex-1 p-4">
+  const [messages, setMessages] = useState([]); // State to store messages
+  const [input, setInput] = useState(""); // State for input value
 
-    
-  </div>;
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (input.trim() !== "") {
+      setMessages([...messages, input]); // Add new message to the state
+      setInput(""); // Clear the input field
+    }
+  };
+
+  return (
+  <div className="bg-[#363940] flex-1 p-4">
+    {/* Chat Window */}
+    <div
+          id="chatWindow"
+          className="p-4 space-y-4 h-96 overflow-y-auto bg-gray-700 rounded-t-lg"
+        >
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className="p-2 rounded-lg bg-gray-600 shadow text-white"
+            >
+              {message}
+            </div>
+          ))}
+        </div>
+
+        {/* Chat Input */}
+        <form
+          onSubmit={handleSendMessage}
+          className="p-3 bg-gray-800 rounded-b-lg flex items-center space-x-3"
+        >
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type your message here..."
+            className="flex-1 input input-bordered bg-gray-600 text-white focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="btn btn-primary"
+          >
+            Send
+          </button>
+        </form>
+    </div>
+  
+  );
 }
+
