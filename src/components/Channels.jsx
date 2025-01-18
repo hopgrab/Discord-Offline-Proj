@@ -1,5 +1,6 @@
 import React from 'react';
 import Category from './Category';
+import { images } from '../assets/images.jsx';
 
 export default function Channels({ setCurrentChannel, currentServer }) {
   const tab1Channels = ['readme', 'announcements', 'events'];

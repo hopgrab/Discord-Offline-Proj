@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 export const useMessages = create(
   persist(
     (set, get) => ({
+      servers: [],
       messages: [],
       addMessage: (newMessage) =>
         set((state) => ({

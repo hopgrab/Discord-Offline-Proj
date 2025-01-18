@@ -1,5 +1,6 @@
 import React from 'react';
 import { useMessages } from '../discordStore.js';
+import { useState } from 'react';
 
 export default function ChatRoom({ currentChannel }) {
   const [message, setMessage] = useState('');
@@ -9,6 +10,12 @@ export default function ChatRoom({ currentChannel }) {
     if (message.trim()) {
       addMessage({ channel: currentChannel, content: message.trim() }); //update
       setMessage('');
+    }
+  };
+
+  const handleEnter = (event) => {
+    if (event.key === 'Enter') {
+      handleSendMessage();
     }
   };
 
@@ -42,6 +49,7 @@ export default function ChatRoom({ currentChannel }) {
           onChange={(e) => setMessage(e.target.value)}
           placeholder={`Message #${currentChannel}`}
           className="flex-1 bg-[#40444b] text-white p-2 rounded-md outline-none"
+          onKeyDown={handleEnter}
         />
         <button
           onClick={handleSendMessage}

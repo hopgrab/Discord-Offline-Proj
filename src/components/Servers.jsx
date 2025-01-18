@@ -1,4 +1,5 @@
 import React from 'react';
+import { images } from '../assets/images.jsx';
 
 export default function Servers({ setCurrentServer }) {
   return (
