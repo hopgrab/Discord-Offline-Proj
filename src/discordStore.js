@@ -6,10 +6,14 @@ export const useDiscordStore = create(
     (set, get) => ({
       servers: [],
       currentServer: 0,
-      currentChannel: '',
+      currentCategory: 0,
+      currentChannel: 0,
       messages: [],
       setCurrentServer: (serverId) => {
         set({ currentServer: serverId });
+      },
+      setCurrentCategory: (catId) => {
+        set({ currentCategory: catId });
       },
       setCurrentChannel: (channelId) => {
         set({ currentChannel: channelId });
@@ -40,35 +44,52 @@ export const useDiscordStore = create(
               : server
           ),
         }),
-      addChannel: (serverId, categoryId, channel) =>
+      addChannel: (channel) =>
         set({
-          servers: get().servers.map((server) =>
-            server.id === serverId
+          servers: get().servers.map((server, categoryName) =>
+            server.id === get().currentServer
               ? {
                   ...server,
                   categories: server.categories.map((cat) =>
-                    cat.id === categoryId
-                      ? { ...cat, channels: [...cat.channels, channel] }
+                    cat.id === get().currentCategory
+                      ? {
+                          ...cat,
+                          channels: [
+                            ...cat.channels,
+                            {
+                              name: channel,
+                              id: server.categories[categoryId].channels.length,
+                              messages: [],
+                            },
+                          ],
+                        }
                       : cat
                   ),
                 }
               : server
           ),
         }),
-      addMessage: (serverId, channelId, message) =>
+      addMessage: (message) =>
         set({
           servers: get().servers.map((server) =>
-            server.id === serverId
+            server.id === get().currentServer
               ? {
                   ...server,
-                  categories: server.categories.map((cat) => ({
-                    ...cat,
-                    channels: cat.channels.map((ch) =>
-                      ch.id === channelId
-                        ? { ...ch, messages: [...(ch.messages || []), message] }
-                        : ch
-                    ),
-                  })),
+                  categories: server.categories.map((category) =>
+                    category.id === get().currentCategory
+                      ? {
+                          ...category,
+                          channels: category.channels.map((channel) =>
+                            channel.id === get().currentChannel
+                              ? {
+                                  ...channel,
+                                  messages: [...channel.messages, message], // Add the new message
+                                }
+                              : channel
+                          ),
+                        }
+                      : category
+                  ),
                 }
               : server
           ),

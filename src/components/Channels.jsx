@@ -78,7 +78,6 @@ export default function Channels({ setCurrentChannel }) {
   };
 
   const currentServerChannels = serverChannels[currentServer];
-
   return (
     <div className="bg-[#303136] w-64 flex flex-col gap-3 overflow-auto">
       <div className="p-4">
@@ -94,7 +93,7 @@ export default function Channels({ setCurrentChannel }) {
               key={index}
               title={category.name}
               tabChannels={category.channels}
-              setCurrentChannel={setCurrentChannel}
+              currentCategory={category.id}
             />
           ))
         ) : (
