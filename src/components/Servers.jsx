@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDiscordStore } from '../discordStore.js';
 import Modal from './Modal.jsx';
-import { useState } from 'react';
+import { useState } from 'react'; 
 
 function AddServerIcon() {
   const addServer = useDiscordStore((state) => state.addServer);
@@ -75,6 +75,13 @@ export default function Servers({}) {
                         : 'hover:rounded-2xl rounded-badge'
                     }`}
                   >
+                   {/* Grey dot or vertical line */} 
+                   {isActiveChannel == index ? (
+                      <div className="absolute left-0 top-0 h-full w-1 bg-[#f7f8fc] rounded-l-2xl"></div> 
+                    ) : (
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#f7f8fc] rounded-full"></div> 
+                    )}
+
                     {server.image && (
                       <img
                         src={server.image}
