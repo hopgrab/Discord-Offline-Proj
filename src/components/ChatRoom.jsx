@@ -73,7 +73,7 @@ export default function ChatRoom({}) {
         <span className="ml-2 text-lg">{currentChannelName}</span>
       </div>
       {/* message */}
-      <div className="flex-1 overflow-y-auto bg-[#2F3136] p-4 space-y-2">
+      <div className="flex-1 overflow-y-auto bg-[#2F3136] p-4 space-y-2 flex-col-reverse">
         {currentChannelMesssages.map((msg, index) => (
           <div className="flex flex-col hover:bg-opacity-10 hover:bg-black rounded-md p-2">
             <div>{msg.date}</div>

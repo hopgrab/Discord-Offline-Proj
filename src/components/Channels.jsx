@@ -42,7 +42,7 @@ export default function Channels({}) {
         {currentServerData && <AddCategory />}
       </div>
       <div className="flex flex-col gap-3 py-3">
-        {currentServerData.categories.length != 0 ? (
+        {currentServerData && currentServerData.categories.length != 0 ? (
           currentServerData.categories.map((category, index) => (
             <Category
               key={index}

@@ -56,7 +56,7 @@ export default function Servers({}) {
             >
               <div className="avatar">
                 <div
-                  className={`h-full rounded-badge hover:rounded-2xl transition-all duration-200 ${
+                  className={`h-full transition-all duration-200 ${
                     isActiveChannel == index
                       ? 'rounded-2xl'
                       : 'hover:rounded-2xl rounded-badge'
