@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDiscordStore } from '../discordStore.js';
 import Modal from './Modal.jsx';
+import { useState } from 'react';
 
 function AddServerIcon() {
   const addServer = useDiscordStore((state) => state.addServer);
@@ -54,12 +55,18 @@ export default function Servers({}) {
               onClick={() => serverClick(index, server)}
             >
               <div className="avatar">
-                <div className="h-full rounded-badge hover:rounded-2xl transition-all duration-200">
+                <div
+                  className={`h-full rounded-badge hover:rounded-2xl transition-all duration-200 ${
+                    isActiveChannel == index
+                      ? 'rounded-2xl'
+                      : 'hover:rounded-2xl rounded-badge'
+                  }`}
+                >
                   {server.image && (
                     <img
                       src={URL.createObjectURL(server.image)}
                       alt={server.name}
-                      className="w-full h-full object-cover rounded-full"
+                      className="w-full h-full object-cover"
                     />
                   )}
                 </div>

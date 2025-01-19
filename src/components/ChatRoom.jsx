@@ -89,7 +89,9 @@ export default function ChatRoom({}) {
           type="text"
           value={messageInput}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder={`Message #${currentChannelName}`}
+          placeholder={`Message #${
+            currentChannelName.length != 0 ? currentChannelName : 'Empty'
+          }`}
           className="flex-1 bg-[#40444b] text-white p-2 rounded-md outline-none"
           onKeyDown={handleEnter}
         />
