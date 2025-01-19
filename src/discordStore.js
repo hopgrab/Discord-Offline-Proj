@@ -11,6 +11,17 @@ function getTodayTimeString() {
   return `Today at ${hours}:${minutes}`;
 }
 
+const convertImageToBase64 = (imageFile) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      resolve(reader.result);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(imageFile);
+  });
+};
+
 export const useDiscordStore = create(
   persist(
     (set, get) => ({
@@ -61,14 +72,17 @@ export const useDiscordStore = create(
           console.warn('No server or category selected.');
         }
       },
-      addServer: (serverName, image) => {
+      addServer: async (serverName, image) => {
+        let base64Image = '';
+        if (image) base64Image = await convertImageToBase64(image);
+
         set({
           servers: [
             ...get().servers,
             {
               id: get().servers.length,
               name: serverName,
-              image: image,
+              image: base64Image,
               categories: [],
               currentServerCategory: 0,
               currentServerChannel: 0,

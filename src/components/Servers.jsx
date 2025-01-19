@@ -52,7 +52,7 @@ export default function Servers({}) {
     <div className="bg-[#212226] max-w-18 p-2 gap-3 flex flex-col">
       {servers.length !== 0 &&
         servers.map((server, index) => {
-          console.log('Server Image: ', isEmpty(server.image));
+          console.log('Server Image: ');
 
           return (
             <div
@@ -75,9 +75,9 @@ export default function Servers({}) {
                         : 'hover:rounded-2xl rounded-badge'
                     }`}
                   >
-                    {!isEmpty(server.image) && (
+                    {server.image && (
                       <img
-                        src={URL.createObjectURL(server.image)}
+                        src={server.image}
                         alt={server.name}
                         className="w-full h-full object-cover"
                       />
