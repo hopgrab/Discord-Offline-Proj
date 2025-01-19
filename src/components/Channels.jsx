@@ -22,23 +22,28 @@ function AddCategory() {
     </Modal>
   );
 }
-export default function Channels({}) {
+
+export default function Channels({ setCurrentChannel }) {
   const servers = useDiscordStore((state) => state.servers);
   const currentServer = useDiscordStore((state) => state.currentServer);
+
+  const currentServerData = servers.find(
+    (server) => server.id === currentServer
+  );
 
   return (
     <div className="bg-[#303136] w-64 flex flex-col gap-3 overflow-auto">
       <div className="p-4">
         <h1 className="text-white text-2xl font-extrabold">
-          {servers.length != 0 && servers[currentServer].name}
+          {currentServerData ? currentServerData.name : 'Select a server'}
         </h1>
       </div>
       <div className="px-7 flex items-center justify-center">
         <AddCategory />
       </div>
       <div className="flex flex-col gap-3 py-3">
-        {servers[currentServer] && servers[currentServer].categories ? (
-          servers[currentServer].categories.map((category, index) => (
+        {currentServerData && currentServerData.categories ? (
+          currentServerData.categories.map((category, index) => (
             <Category
               key={index}
               title={category.name}
@@ -47,7 +52,7 @@ export default function Channels({}) {
             />
           ))
         ) : (
-          <div>No</div>
+          <div>No categories available</div>
         )}
       </div>
     </div>

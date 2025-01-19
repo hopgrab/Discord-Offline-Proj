@@ -1,17 +1,25 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function Modal(props) {
   const [messageInput, setMessageInput] = useState('');
+  const [image, setImage] = useState(null);
+  const [imageSelected, setImageSelected] = useState(false);
 
   const handleAddServer = () => {
     if (messageInput.trim()) {
-      props.onSubmit(messageInput);
+      props.onSubmit(messageInput, image);
     }
     setMessageInput('');
+    setImage(null);
+    setImageSelected(false);
     if (props.otherFunctions) {
       props.otherFunctions();
     }
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+    setImageSelected(true);
   };
 
   return (
@@ -24,7 +32,6 @@ export default function Modal(props) {
         >
           <div className="modal-box">
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
@@ -33,10 +40,7 @@ export default function Modal(props) {
               <h1 className="text-white text-3xl font-bold capitalize">
                 {props.header}
               </h1>
-              <form
-                className="p-3 flex items-center justify-center gap-3"
-                method="dialog"
-              >
+              <form className="p-3 flex items-center justify-center gap-3" method="dialog">
                 <input
                   type="text"
                   value={messageInput}
@@ -44,10 +48,20 @@ export default function Modal(props) {
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-xs"
                 />
-                <button
-                  className="btn btn-outline btn-info modal-action m-0"
-                  onClick={handleAddServer}
-                >
+                {props.showImageInput && (
+                  <div className="relative">
+                    <input
+                      type="file"
+                      onChange={handleImageChange}
+                      accept="image/*"
+                      className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+                    />
+                    <button className={`btn w-full max-w-xs ${imageSelected ? 'btn-success' : 'btn-outline'}`}>
+                      {imageSelected ? 'Image Selected' : 'Choose Image'}
+                    </button>
+                  </div>
+                )}
+                <button className="btn btn-outline btn-info modal-action m-0" onClick={handleAddServer}>
                   {props.buttonName}
                 </button>
               </form>

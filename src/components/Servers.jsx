@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDiscordStore } from '../discordStore.js';
 import Modal from './Modal.jsx';
 
@@ -14,6 +14,7 @@ function AddServerIcon() {
       onSubmit={addServer}
       otherFunctions={() => setCurrentServer(servers.length)}
       id="add-server"
+      showImageInput={true}
     >
       <button
         className="btn btn-circle btn-outline text-4xl size-14"
@@ -36,10 +37,9 @@ export default function Servers({}) {
     console.log(`index: ${index}`);
   }
 
-  console.log(servers);
   return (
     <div className="bg-[#212226] max-w-18 p-2 gap-3 flex flex-col">
-      {servers.length != 0 &&
+      {servers.length !== 0 &&
         servers.map((server, index) => (
           <div
             key={index}
@@ -54,7 +54,15 @@ export default function Servers({}) {
               onClick={() => serverClick(index, server)}
             >
               <div className="avatar">
-                <div className="h-full rounded-badge hover:rounded-2xl transition-all duration-200"></div>
+                <div className="h-full rounded-badge hover:rounded-2xl transition-all duration-200">
+                  {server.image && (
+                    <img
+                      src={URL.createObjectURL(server.image)}
+                      alt={server.name}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  )}
+                </div>
               </div>
             </button>
             <div
