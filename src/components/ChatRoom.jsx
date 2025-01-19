@@ -41,7 +41,7 @@ export default function ChatRoom({}) {
     // Handle missing data
     if (!server || !category || !channel) {
       // console.log(servers[currentServer].categories[currentCategory]);
-      return <div>Empty</div>;
+      return [];
     }
 
     return servers[currentServer].categories[currentCategory].channels[
