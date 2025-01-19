@@ -14,7 +14,7 @@ function AddCategory() {
       id="add-category"
     >
       <button
-        className="btn btn-outline"
+        className="btn btn-outline w-full"
         onClick={() => document.getElementById('add-category').showModal()}
       >
         Add Category
@@ -22,62 +22,10 @@ function AddCategory() {
     </Modal>
   );
 }
-export default function Channels({ setCurrentChannel }) {
+export default function Channels({}) {
   const servers = useDiscordStore((state) => state.servers);
   const currentServer = useDiscordStore((state) => state.currentServer);
 
-  const serverChannels = {
-    // SERVER 1 Channels
-    0: {
-      important: ['readme', 'announcements', 'events'],
-      general: ['general', 'bot-commands', 'vc-chat', 'test', '123'],
-      anime: ['vids', 'pics', 'asdf', 'xd', 'time-out', 'amongus'],
-      'cute-stuff': [
-        'anime-pics',
-        'anime-stuff',
-        'uwu',
-        'owo',
-        'real',
-        'memes',
-        'this-is-a-long-channel-name',
-      ],
-      test: ['lol'],
-    },
-    // SERVER 2 Channels
-    1: {
-      important: ['readme', 'announcements', 'events'],
-      general: ['general', 'bot-commands', 'vc-chat', 'test', '123'],
-      anime: ['vids', 'pics', 'asdf', 'xd', 'time-out', 'amongus'],
-      'cute-stuff': [
-        'anime-pics',
-        'anime-stuff',
-        'uwu',
-        'owo',
-        'real',
-        'memes',
-        'this-is-a-long-channel-name',
-      ],
-      test: ['lol'],
-    },
-    // SERVER 3 Channels
-    2: {
-      important: ['readme', 'announcements', 'events'],
-      general: ['general', 'bot-commands', 'vc-chat', 'test', '123'],
-      anime: ['vids', 'pics', 'asdf', 'xd', 'time-out', 'amongus'],
-      'cute-stuff': [
-        'anime-pics',
-        'anime-stuff',
-        'uwu',
-        'owo',
-        'real',
-        'memes',
-        'this-is-a-long-channel-name',
-      ],
-      test: ['lol'],
-    },
-  };
-
-  const currentServerChannels = serverChannels[currentServer];
   return (
     <div className="bg-[#303136] w-64 flex flex-col gap-3 overflow-auto">
       <div className="p-4">
@@ -85,7 +33,9 @@ export default function Channels({ setCurrentChannel }) {
           {servers.length != 0 && servers[currentServer].name}
         </h1>
       </div>
-      <AddCategory />
+      <div className="px-7 flex items-center justify-center">
+        <AddCategory />
+      </div>
       <div className="flex flex-col gap-3 py-3">
         {servers[currentServer] && servers[currentServer].categories ? (
           servers[currentServer].categories.map((category, index) => (

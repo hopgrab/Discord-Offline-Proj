@@ -1,6 +1,16 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
+function getTodayTimeString() {
+  const now = new Date();
+
+  // Get the hours and minutes
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+
+  return `Today at ${hours}:${minutes}`;
+}
+
 export const useDiscordStore = create(
   persist(
     (set, get) => ({
@@ -113,9 +123,6 @@ export const useDiscordStore = create(
           ),
         }),
       addMessage: (message) => {
-        const today = new Date();
-        const formattedDate = today.toISOString().split('T')[0];
-
         set({
           servers: get().servers.map((server) =>
             server.id === get().currentServer
@@ -131,7 +138,10 @@ export const useDiscordStore = create(
                                   ...channel,
                                   messages: [
                                     ...channel.messages,
-                                    { message: message, date: formattedDate },
+                                    {
+                                      message: message,
+                                      date: getTodayTimeString(),
+                                    },
                                   ], // Add the new message
                                 }
                               : channel

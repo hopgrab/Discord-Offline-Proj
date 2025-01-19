@@ -27,8 +27,14 @@ function AddServerIcon() {
 
 export default function Servers({}) {
   const setCurrentServer = useDiscordStore((state) => state.setCurrentServer);
-
   const servers = useDiscordStore((state) => state.servers);
+  const [isActiveChannel, setActiveChannel] = useState(null);
+
+  function serverClick(index, server) {
+    setCurrentServer(server.id);
+    setActiveChannel(index);
+    console.log(`index: ${index}`);
+  }
 
   console.log(servers);
   return (
@@ -36,12 +42,16 @@ export default function Servers({}) {
       {servers.length != 0 &&
         servers.map((server, index) => (
           <div
-            key={server.id || index}
+            key={index}
             className="dropdown dropdown-hover dropdown-right dropdown-center"
           >
             <button
-              className="size-14 bg-gray-600 flex items-center justify-center rounded-full"
-              onClick={() => setCurrentServer(server.id)} //-test
+              className={`size-14 bg-gray-600 flex items-center justify-center transition-all duration-200 ${
+                isActiveChannel == index
+                  ? 'rounded-2xl'
+                  : 'hover:rounded-2xl rounded-badge'
+              }`}
+              onClick={() => serverClick(index, server)}
             >
               <div className="avatar">
                 <div className="h-full rounded-badge hover:rounded-2xl transition-all duration-200"></div>

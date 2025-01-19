@@ -16,10 +16,10 @@ export default function App() {
         <Channels setCurrentChannel={setCurrentChannel} />
         <ChatRoom />
       </div>
-      <div className="fixed top-10 right-10 flex flex-col gap-3">
+      {/* <div className="fixed top-10 right-10 flex flex-col gap-3">
         <ClearStorage />
         <Log />
-      </div>
+      </div> */}
     </>
   );
 }

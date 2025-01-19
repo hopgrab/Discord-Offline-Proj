@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 export default function ChatRoom({}) {
   const [messageInput, setMessage] = useState('');
-  const messages = useDiscordStore((state) => state.messages);
   const addMessage = useDiscordStore((state) => state.addMessage);
   const currentServer = useDiscordStore((state) => state.currentServer);
   const currentCategory = useDiscordStore((state) => state.currentCategory);
@@ -73,14 +72,14 @@ export default function ChatRoom({}) {
         <span className="text-2xl font-bold">#</span>
         <span className="ml-2 text-lg">{currentChannelName}</span>
       </div>
-
+      {/* message */}
       <div className="flex-1 overflow-y-auto bg-[#2F3136] p-4 space-y-2">
         {currentChannelMesssages.map((msg, index) => (
-          <div
-            key={index}
-            className="text-white bg-gray-700 p-2 rounded-md shadow-md"
-          >
-            {msg.message}
+          <div className="flex flex-col hover:bg-opacity-10 hover:bg-black rounded-md p-2">
+            <div>{msg.date}</div>
+            <div key={index} className="text-white">
+              {msg.message}
+            </div>
           </div>
         ))}
       </div>
