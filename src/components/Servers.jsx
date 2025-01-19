@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDiscordStore } from '../discordStore.js';
 import Modal from './Modal.jsx';
 
@@ -14,6 +14,7 @@ function AddServerIcon() {
       onSubmit={addServer}
       otherFunctions={() => setCurrentServer(servers.length)}
       id="add-server"
+      showImageInput={true}
     >
       <button
         className="btn btn-circle btn-outline text-4xl size-14"
@@ -25,15 +26,14 @@ function AddServerIcon() {
   );
 }
 
+
 export default function Servers({}) {
   const setCurrentServer = useDiscordStore((state) => state.setCurrentServer);
-
   const servers = useDiscordStore((state) => state.servers);
 
-  console.log(servers);
   return (
     <div className="bg-[#212226] max-w-18 p-2 gap-3 flex flex-col">
-      {servers.length != 0 &&
+      {servers.length !== 0 &&
         servers.map((server, index) => (
           <div
             key={server.id || index}
@@ -41,10 +41,14 @@ export default function Servers({}) {
           >
             <button
               className="size-14 bg-gray-600 flex items-center justify-center rounded-full"
-              onClick={() => setCurrentServer(server.id)} //-test
+              onClick={() => setCurrentServer(server.id)}
             >
               <div className="avatar">
-                <div className="h-full rounded-badge hover:rounded-2xl transition-all duration-200"></div>
+                <div className="h-full rounded-badge hover:rounded-2xl transition-all duration-200">
+                  {server.image && (
+                    <img src={URL.createObjectURL(server.image)} alt={server.name} className="w-full h-full object-cover rounded-full" />
+                  )}
+                </div>
               </div>
             </button>
             <div

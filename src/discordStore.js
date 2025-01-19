@@ -22,8 +22,6 @@ export const useDiscordStore = create(
           currentCategory: currentServerCategory,
           currentChannel: currentServerChannel,
         });
-
-        console.log(currentServerCategory);
       },
       setCurrentCategory: (catId) => {
         if (get().currentServer !== null) {
@@ -53,13 +51,14 @@ export const useDiscordStore = create(
           console.warn('No server or category selected.');
         }
       },
-      addServer: (serverName) => {
+      addServer: (serverName, image) => {
         set({
           servers: [
             ...get().servers,
             {
               id: get().servers.length,
               name: serverName,
+              image: image,
               categories: [],
               currentServerCategory: 0,
               currentServerChannel: 0,
