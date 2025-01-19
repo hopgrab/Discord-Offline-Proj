@@ -39,6 +39,7 @@ export default function Category(props) {
   const setCurrentCategory = useDiscordStore(
     (state) => state.setCurrentCategory
   );
+  const currentCategory = useDiscordStore((state) => state.currentCategory);
 
   function channelClick(index, channel) {
     setCurrentCategory(props.currentCategory);
@@ -64,7 +65,8 @@ export default function Category(props) {
             key={index}
             onClick={() => channelClick(index, channel)}
             className={`w-full text-left flex items-center space-x-2 pl-4 rounded-md min-w-0 ${
-              isActiveChannel == index
+              isActiveChannel == index &&
+              currentCategory == props.currentCategory
                 ? 'bg-opacity-10 bg-gray-50 text-white'
                 : ' text-gray-400 hover:text-white '
             }`}
