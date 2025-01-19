@@ -154,6 +154,6 @@ export const useDiscordStore = create(
         });
       },
     }),
-    { name: 'messages', storage: createJSONStorage(() => localStorage) }
+    { name: 'messages', storage: createJSONStorage(() => sessionStorage) }
   )
 );

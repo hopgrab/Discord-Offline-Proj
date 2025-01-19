@@ -27,6 +27,16 @@ function AddServerIcon() {
   );
 }
 
+function isEmpty(obj) {
+  for (const prop in obj) {
+    if (Object.hasOwn(obj, prop)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export default function Servers({}) {
   const setCurrentServer = useDiscordStore((state) => state.setCurrentServer);
   const servers = useDiscordStore((state) => state.servers);
@@ -41,45 +51,49 @@ export default function Servers({}) {
   return (
     <div className="bg-[#212226] max-w-18 p-2 gap-3 flex flex-col">
       {servers.length !== 0 &&
-        servers.map((server, index) => (
-          <div
-            key={index}
-            className="dropdown dropdown-hover dropdown-right dropdown-center"
-          >
-            <button
-              className={`size-14 bg-gray-600 flex items-center justify-center transition-all duration-200 ${
-                isActiveChannel == index
-                  ? 'rounded-2xl'
-                  : 'hover:rounded-2xl rounded-badge'
-              }`}
-              onClick={() => serverClick(index, server)}
-            >
-              <div className="avatar">
-                <div
-                  className={`h-full transition-all duration-200 ${
-                    isActiveChannel == index
-                      ? 'rounded-2xl'
-                      : 'hover:rounded-2xl rounded-badge'
-                  }`}
-                >
-                  {server.image && (
-                    <img
-                      src={URL.createObjectURL(server.image)}
-                      alt={server.name}
-                      className="w-full h-full object-cover"
-                    />
-                  )}
-                </div>
-              </div>
-            </button>
+        servers.map((server, index) => {
+          console.log('Server Image: ', isEmpty(server.image));
+
+          return (
             <div
-              tabIndex={0}
-              className="dropdown-content rounded-lg z-[1] p-2 shadow translate-x-2 max-w-48 whitespace-pre bg-black text-white"
+              key={index}
+              className="dropdown dropdown-hover dropdown-right dropdown-center"
             >
-              <div className="w-full">{server.name}</div>
+              <button
+                className={`size-14 bg-gray-600 flex items-center justify-center transition-all duration-200 ${
+                  isActiveChannel == index
+                    ? 'rounded-2xl'
+                    : 'hover:rounded-2xl rounded-badge'
+                }`}
+                onClick={() => serverClick(index, server)}
+              >
+                <div className="avatar">
+                  <div
+                    className={`h-full transition-all duration-200 ${
+                      isActiveChannel == index
+                        ? 'rounded-2xl'
+                        : 'hover:rounded-2xl rounded-badge'
+                    }`}
+                  >
+                    {!isEmpty(server.image) && (
+                      <img
+                        src={URL.createObjectURL(server.image)}
+                        alt={server.name}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
+                  </div>
+                </div>
+              </button>
+              <div
+                tabIndex={0}
+                className="dropdown-content rounded-lg z-[1] p-2 shadow translate-x-2 max-w-48 whitespace-pre bg-black text-white"
+              >
+                <div className="w-full">{server.name}</div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       <AddServerIcon />
     </div>
   );
