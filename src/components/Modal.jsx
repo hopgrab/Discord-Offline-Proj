@@ -5,7 +5,7 @@ export default function Modal(props) {
   const [image, setImage] = useState(null);
   const [imageSelected, setImageSelected] = useState(false);
 
-  const handleAddServer = () => {
+  const handleAdd = () => {
     if (messageInput.trim()) {
       props.onSubmit(messageInput, image);
     }
@@ -20,6 +20,12 @@ export default function Modal(props) {
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
     setImageSelected(true);
+  };
+
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      handleAdd();
+    }
   };
 
   return (
@@ -47,6 +53,7 @@ export default function Modal(props) {
                   onChange={(e) => setMessageInput(e.target.value)}
                   placeholder="Type here"
                   className="input input-bordered w-full max-w-xs"
+                  onKeyDown={handleEnter}
                 />
                 {props.showImageInput && (
                   <div className="relative">
@@ -67,7 +74,7 @@ export default function Modal(props) {
                 )}
                 <button
                   className="btn btn-outline btn-info modal-action m-0"
-                  onClick={handleAddServer}
+                  onClick={handleAdd}
                 >
                   {props.buttonName}
                 </button>
