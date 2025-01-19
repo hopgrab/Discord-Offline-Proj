@@ -29,6 +29,8 @@ export default function Servers({}) {
   const setCurrentServer = useDiscordStore((state) => state.setCurrentServer);
 
   const servers = useDiscordStore((state) => state.servers);
+
+  console.log(servers);
   return (
     <div className="bg-[#212226] max-w-18 p-2 gap-3 flex flex-col">
       {servers.length != 0 &&

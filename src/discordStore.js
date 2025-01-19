@@ -10,19 +10,60 @@ export const useDiscordStore = create(
       currentChannel: 0,
       messages: [],
       setCurrentServer: (serverId) => {
-        set({ currentServer: serverId });
+        const currentServerCategory = get().servers.find(
+          (server) => server.id === serverId
+        )?.currentServerCategory;
+        const currentServerChannel = get().servers.find(
+          (server) => server.id === serverId
+        )?.currentServerChannel;
+
+        set({
+          currentServer: serverId,
+          currentCategory: currentServerCategory,
+          currentChannel: currentServerChannel,
+        });
+
+        console.log(currentServerCategory);
       },
       setCurrentCategory: (catId) => {
-        set({ currentCategory: catId });
+        if (get().currentServer !== null) {
+          set({
+            currentCategory: catId,
+            servers: get().servers.map((server) =>
+              server.id === get().currentServer
+                ? { ...server, currentServerCategory: catId }
+                : server
+            ),
+          });
+        } else {
+          console.warn('No server selected.');
+        }
       },
       setCurrentChannel: (channelId) => {
-        set({ currentChannel: channelId });
+        if (get().currentServer !== null && get().currentCategory !== null) {
+          set({
+            currentChannel: channelId,
+            servers: get().servers.map((server) =>
+              server.id === get().currentServer
+                ? { ...server, currentServerChannel: channelId }
+                : server
+            ),
+          });
+        } else {
+          console.warn('No server or category selected.');
+        }
       },
       addServer: (serverName) => {
         set({
           servers: [
             ...get().servers,
-            { id: get().servers.length, name: serverName, categories: [] },
+            {
+              id: get().servers.length,
+              name: serverName,
+              categories: [],
+              currentServerCategory: 0,
+              currentServerChannel: 0,
+            },
           ],
         });
       },
@@ -46,7 +87,7 @@ export const useDiscordStore = create(
         }),
       addChannel: (channel) =>
         set({
-          servers: get().servers.map((server, categoryName) =>
+          servers: get().servers.map((server) =>
             server.id === get().currentServer
               ? {
                   ...server,
@@ -58,7 +99,9 @@ export const useDiscordStore = create(
                             ...cat.channels,
                             {
                               name: channel,
-                              id: server.categories[categoryId].channels.length,
+                              id: server.categories[cat.id].channels
+                                ? server.categories[cat.id].channels.length
+                                : 0,
                               messages: [],
                             },
                           ],
@@ -69,7 +112,10 @@ export const useDiscordStore = create(
               : server
           ),
         }),
-      addMessage: (message) =>
+      addMessage: (message) => {
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+
         set({
           servers: get().servers.map((server) =>
             server.id === get().currentServer
@@ -83,7 +129,10 @@ export const useDiscordStore = create(
                             channel.id === get().currentChannel
                               ? {
                                   ...channel,
-                                  messages: [...channel.messages, message], // Add the new message
+                                  messages: [
+                                    ...channel.messages,
+                                    { message: message, date: formattedDate },
+                                  ], // Add the new message
                                 }
                               : channel
                           ),
@@ -93,7 +142,8 @@ export const useDiscordStore = create(
                 }
               : server
           ),
-        }),
+        });
+      },
     }),
     { name: 'messages', storage: createJSONStorage(() => sessionStorage) }
   )

@@ -11,34 +11,52 @@ export default function ChatRoom({}) {
   const currentChannel = useDiscordStore((state) => state.currentChannel);
   const servers = useDiscordStore((state) => state.servers);
 
-  function handleMissing() {
+  function handleMissingName() {
     const server = servers.find((s) => s.id === currentServer);
     const category = server?.categories.find((c) => c.id === currentCategory);
     const channel = category?.channels.find((ch) => ch.id === currentChannel);
+
+    console.log(server, category, channel);
+    // console.log(servers[currentServer].categories[currentCategory]);
 
     // Handle missing data
     if (!server || !category || !channel) {
       console.log(currentServer);
       console.log(currentCategory);
       console.log(currentChannel);
-      console.log(servers[currentServer].categories[currentCategory]);
-      // return <div>Channel not found or data is missing.</div>;
+      // console.log(servers[currentServer].categories[currentCategory]);
+      return <div>Empty</div>;
     }
 
-    // return servers[currentServer].categories[currentCategory].channels[
-    //   currentChannel
-    // ];
+    return servers[currentServer].categories[currentCategory].channels[
+      currentChannel
+    ].name;
   }
 
-  const currentChannelName = handleMissing();
+  function handleMissingMsg() {
+    const server = servers.find((s) => s.id === currentServer);
+    const category = server?.categories.find((c) => c.id === currentCategory);
+    const channel = category?.channels.find((ch) => ch.id === currentChannel);
+
+    // Handle missing data
+    if (!server || !category || !channel) {
+      // console.log(servers[currentServer].categories[currentCategory]);
+      return <div>Empty</div>;
+    }
+
+    return servers[currentServer].categories[currentCategory].channels[
+      currentChannel
+    ].messages;
+  }
+
+  const currentChannelName = handleMissingName();
+  const currentChannelMesssages = handleMissingMsg();
+
+  console.log(currentChannelMesssages);
 
   const handleSendMessage = () => {
     if (messageInput.trim()) {
-      addMessage({
-        server: currentServer,
-        channel: currentChannel,
-        content: messageInput.trim(),
-      });
+      addMessage(messageInput.trim());
       setMessage('');
     }
   };
@@ -57,19 +75,14 @@ export default function ChatRoom({}) {
       </div>
 
       <div className="flex-1 overflow-y-auto bg-[#2F3136] p-4 space-y-2">
-        {messages
-          .filter(
-            (msg) =>
-              msg.server === currentServer && msg.channel === currentChannel
-          )
-          .map((msg, index) => (
-            <div
-              key={index}
-              className="text-white bg-gray-700 p-2 rounded-md shadow-md"
-            >
-              {msg.content}
-            </div>
-          ))}
+        {currentChannelMesssages.map((msg, index) => (
+          <div
+            key={index}
+            className="text-white bg-gray-700 p-2 rounded-md shadow-md"
+          >
+            {msg.message}
+          </div>
+        ))}
       </div>
 
       <div className="bg-[#2F3136] p-3 flex items-center">
@@ -77,7 +90,7 @@ export default function ChatRoom({}) {
           type="text"
           value={messageInput}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder={`Message #${currentChannel}`}
+          placeholder={`Message #${currentChannelName}`}
           className="flex-1 bg-[#40444b] text-white p-2 rounded-md outline-none"
           onKeyDown={handleEnter}
         />

@@ -10,12 +10,13 @@ function AddChannel(props) {
   );
 
   function handleAddChannel(name) {
-    addChannel(currentCategory, name);
+    addChannel(name);
   }
 
   function handlePlusClick() {
     document.getElementById('add-channel').showModal();
     setCurrentCategory(props.currentCategory);
+    console.log(currentCategory);
   }
 
   return (
@@ -39,10 +40,7 @@ export default function Category(props) {
   );
 
   return (
-    <div
-      className="pl-4 collapse gap-2"
-      onClick={() => setCurrentCategory(props.currentCategory)}
-    >
+    <div className="pl-4 collapse gap-2">
       <input type="checkbox" defaultChecked className="h-5 min-h-5" />
       <div className="w-full text-left text-white font-bold uppercase collapse-title p-0 min-h-5 h-5 flex ">
         <p className="translate-x-[-5px] translate-y-[-4px]">
@@ -55,7 +53,10 @@ export default function Category(props) {
         {props.tabChannels.map((channel, index) => (
           <button
             key={index}
-            onClick={() => setCurrentChannel(channel.id)}
+            onClick={() => {
+              setCurrentCategory(props.currentCategory);
+              setCurrentChannel(channel.id);
+            }}
             className="w-full text-left text-gray-400 hover:text-white flex items-center space-x-2"
           >
             <span className="text-2xl">#</span>
