@@ -33,8 +33,8 @@ export default function Channels({}) {
 
   return (
     <div className="bg-[#303136] w-64 flex flex-col gap-3 overflow-hidden">
-      <div className="p-4 overflow-ellipsis whitespace-pre-wrap text-wrap">
-        <h1 className="text-white text-2xl font-extrabold ">
+      <div className="p-4 overflow-ellipsis whitespace-pre-wrap text-wrap min-w-0">
+        <h1 className="text-white text-2xl font-extrabold overflow-ellipsis whitespace-nowrap overflow-hidden">
           {currentServerData ? currentServerData.name : 'Select a server'}
         </h1>
       </div>
